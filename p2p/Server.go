@@ -65,11 +65,25 @@ func processRequestType(conn net.Conn, request *Request) {
 		fmt.Println("Received processed block2", block)
 		handleProcessedBlock(block)
 
+	case BlockchainType:
+		fmt.Println("Received blockchain")
+		*blockchain.LocalBlockchain = request.Payload.(blockchain.Blockchain)
+
 	case NodeAddressesType:
 		fmt.Println("Received node addresses")
 		nAddreses := request.Payload.(*map[string]struct{})
 		handleNodeAddresses(nAddreses)
+
+	case GetSyncNodeAddressesType:
+		fmt.Println("Received get sync node addresses")
+		//TODO
+
+	case GetSyncBlockchainType:
+		fmt.Println("Received get sync blockchain")
+		//TODO
+
 	default:
 		fmt.Println("Received unknown request type")
 	}
+
 }

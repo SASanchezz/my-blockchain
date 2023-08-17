@@ -36,6 +36,20 @@ func broadcastMessge(request *Request) {
 	}
 }
 
+func SendGetSyncBlockchain(conn net.Conn) {
+	request := &Request{
+		RequestType: GetSyncBlockchainType,
+	}
+	sendMessge(conn, request)
+}
+
+func SendGetSyncNodeAddresses(conn net.Conn) {
+	request := &Request{
+		RequestType: GetSyncNodeAddressesType,
+	}
+	sendMessge(conn, request)
+}
+
 func SendNewBlock(conn net.Conn, block *blockchain.Block) {
 	request := &Request{
 		RequestType: NewBlockType,
