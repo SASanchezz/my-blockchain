@@ -22,7 +22,9 @@ func (bl *Blockchain) IsValid() bool {
 	for i := range bl.Chain[1:] {
 		previousBlock := bl.Chain[i]
 		currentBlock := bl.Chain[i+1]
-		if !bytes.Equal(currentBlock.BlockHash, currentBlock.GetHash()) || !bytes.Equal(currentBlock.PreviousBlockHash, previousBlock.GetHash()) {
+		currentBlockHash := currentBlock.GetHash()   //Error
+		previousBlockHash := previousBlock.GetHash() // Hashes of same block are different
+		if !bytes.Equal(currentBlock.BlockHash, currentBlockHash) || !bytes.Equal(currentBlock.PreviousBlockHash, previousBlockHash) {
 			return false
 		}
 	}

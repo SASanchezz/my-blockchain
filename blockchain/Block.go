@@ -7,7 +7,8 @@ import (
 	"math"
 	"math/big"
 	"strconv" // for conversion
-	"time"    // the time for our timestamp
+	"time"
+	// the time for our timestamp
 )
 
 // GetHash - we just concatenate all the data and hash it to obtain the block hash
@@ -61,7 +62,7 @@ func (b *Block) Mine() {
 }
 
 func NewGenesisBlock() *Block {
-	var genesisBlock = NewBlock("", "", 0, "Genesis Block", []byte{})
+	var genesisBlock = NewBlock("", "", 0, "Genesis Block1", []byte{})
 	genesisBlock.Mine()
 
 	return genesisBlock
@@ -76,7 +77,6 @@ func (b *Block) GetBytes() []byte {
 		[]byte(b.Data),
 		[]byte(strconv.FormatInt(b.Timestamp, 10)),
 		[]byte(b.PreviousBlockHash),
-		[]byte(b.BlockHash),
 		[]byte(strconv.FormatInt(b.Nonce, 10)),
 	}, []byte{})
 }

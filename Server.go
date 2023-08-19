@@ -1,7 +1,11 @@
 package main
 
-import "my-blockchain/p2p"
+import (
+	"my-blockchain/blockchain"
+	"my-blockchain/p2p/server"
+)
 
 func main() {
-	p2p.StartListening("localhost:3001")
+	blockchain.LocalBlockchain = blockchain.NewBlockchain()
+	server.StartListening("localhost:3001")
 }

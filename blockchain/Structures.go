@@ -1,6 +1,6 @@
 package blockchain
 
-var LocalBlockchain *Blockchain = NewBlockchain()
+var LocalBlockchain *Blockchain
 
 type Block struct {
 	From              string `json:"From"`              // the sender

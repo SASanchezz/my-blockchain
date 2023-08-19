@@ -2,7 +2,7 @@ package p2p
 
 import "my-blockchain/blockchain"
 
-func handleNewBlock(b *blockchain.Block) {
+func HandleNewBlock(b *blockchain.Block) {
 	b.Mine()
 	blockchain.LocalBlockchain.Chain = append(blockchain.LocalBlockchain.Chain, b)
 	if !blockchain.LocalBlockchain.IsValid() {
@@ -10,12 +10,16 @@ func handleNewBlock(b *blockchain.Block) {
 	}
 }
 
-func handleProcessedBlock(b *blockchain.Block) {
+func HandleProcessedBlock(b *blockchain.Block) {
 	blockchain.LocalBlockchain.Chain = append(blockchain.LocalBlockchain.Chain, b)
 }
 
-func handleNodeAddresses(nAddreses *map[string]struct{}) {
+func HandleBlockchain(bl *blockchain.Blockchain) {
+	blockchain.LocalBlockchain = bl
+}
+
+func HandleNodeAddresses(nAddreses *map[string]struct{}) {
 	for na := range *nAddreses {
-		nodeAddresses[na] = struct{}{}
+		NodeAddresses[na] = struct{}{}
 	}
 }
