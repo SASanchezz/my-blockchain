@@ -1,12 +1,17 @@
 package client
 
 import (
+	"fmt"
 	"my-blockchain/blockchain"
 	"my-blockchain/p2p"
-	"net"
 )
 
-func SendGetSyncBlockchain(conn net.Conn) {
+func SyncBlockchain(host string, port string) {
+	conn, err := Connect(fmt.Sprintf("%s:%s", host, port))
+	if err != nil {
+		println("Error connecting to peer:", err.Error())
+		return
+	}
 	request := &p2p.Request{
 		RequestType: p2p.GetSyncBlockchainType,
 	}
@@ -18,13 +23,19 @@ func SendGetSyncBlockchain(conn net.Conn) {
 	p2p.HandleBlockchain(blockchain)
 }
 
-func SendGetSyncNodeAddresses(conn net.Conn) {
+func SyncNodeAddresses(host string, port string) {
+	conn, err := Connect(fmt.Sprintf("%s:%s", host, port))
+	if err != nil {
+		println("Error connecting to peer:", err.Error())
+		return
+	}
 	request := &p2p.Request{
 		RequestType: p2p.GetSyncNodeAddressesType,
 	}
 	sendMessge(conn, request)
 
 	response := p2p.GetResponse(&conn)
-	nAddreses := response.Payload.(*map[string]struct{})
-	p2p.HandleNodeAddresses(nAddreses)
+	nAddreses := map[string]struct{}{}
+	p2p.ConvertMapToObject(response.Payload.(map[string]interface{}), nAddreses)
+	p2p.HandleNodeAddresses(&nAddreses)
 }

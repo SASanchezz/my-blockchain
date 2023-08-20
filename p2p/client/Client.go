@@ -25,7 +25,7 @@ func sendMessge(conn net.Conn, request *p2p.Request) {
 		fmt.Println("encode.Encode error: ", err)
 	}
 
-	fmt.Println("Sent message", request)
+	fmt.Println("Sent", request.RequestType, "to", conn.RemoteAddr())
 }
 
 func broadcastMessge(request *p2p.Request) {

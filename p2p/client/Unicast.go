@@ -25,12 +25,12 @@ func SendProcessedBlock(conn net.Conn, block *blockchain.Block) {
 func SendNodeAddresses(conn net.Conn, nodeAddresses *map[string]struct{}) {
 	request := &p2p.Request{
 		RequestType: p2p.NodeAddressesType,
-		Payload:     nodeAddresses,
+		Payload:     *nodeAddresses,
 	}
 	sendMessge(conn, request)
 }
 
-func SendBlockchain(conn net.Conn, blockchain blockchain.Blockchain) {
+func SendBlockchain(conn net.Conn, blockchain *blockchain.Blockchain) {
 	request := &p2p.Request{
 		RequestType: p2p.BlockchainType,
 		Payload:     blockchain,

@@ -2,6 +2,7 @@ package p2p
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net"
 )
@@ -27,6 +28,7 @@ func GetResponse(conn *net.Conn) *Request {
 			continue
 		}
 
+		fmt.Println("Received:", request.RequestType, "from", (*conn).RemoteAddr())
 		return request
 	}
 }

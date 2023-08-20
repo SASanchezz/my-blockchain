@@ -24,11 +24,11 @@ func processRequestType(conn net.Conn, request *p2p.Request) {
 
 	case p2p.GetSyncNodeAddressesType:
 		fmt.Println("Received get sync node addresses")
-		//TODO
+		client.SendNodeAddresses(conn, &p2p.NodeAddresses)
 
 	case p2p.GetSyncBlockchainType:
 		fmt.Println("Received get sync blockchain")
-		client.SendBlockchain(conn, *blockchain.LocalBlockchain)
+		client.SendBlockchain(conn, blockchain.LocalBlockchain)
 
 	default:
 		fmt.Println("Received unknown request type")

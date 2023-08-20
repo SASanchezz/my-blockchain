@@ -3,16 +3,15 @@ package main
 import (
 	"my-blockchain/blockchain"
 	"my-blockchain/p2p/client"
+	"my-blockchain/utils"
+	"os"
 )
 
 func main() {
-	conn, err := client.Connect("localhost:3001")
-	if err != nil {
-		println("Error connecting to peer:", err.Error())
-		return
-	}
-	client.SendGetSyncBlockchain(conn)
-	conn.Close()
+	utils.InitEnvVariables()
+
+	client.SyncBlockchain("localhost", os.Getenv("SEED_NODE_PORT"))
+	client.SyncNodeAddresses("localhost", os.Getenv("SEED_NODE_PORT"))
 
 	fromAddress1 := "0x0002"
 	toAddress1 := "0x003"
