@@ -3,20 +3,21 @@ package server
 import (
 	"encoding/json"
 	"fmt"
+	"my-blockchain/mynet"
 	"my-blockchain/p2p"
 	"net"
 	"os"
 )
 
-func StartListening(host string) {
-	listener, err := net.Listen("tcp", host)
+func StartListening(port string) {
+	listener, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		fmt.Println("Error starting listener:", err)
 		os.Exit(1)
 	}
 	// defer listener.Close()
-
-	fmt.Println("Listening on:", host)
+	myIP := mynet.GetMyLocalAddress()
+	fmt.Printf("Listening on: %s:%s", myIP.String(), port)
 
 	for {
 		conn, err := listener.Accept()

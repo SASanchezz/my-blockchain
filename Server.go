@@ -7,5 +7,5 @@ import (
 
 func main() {
 	blockchain.LocalBlockchain = blockchain.NewBlockchain()
-	server.StartListening("localhost:3001")
+	server.StartListening("3001")
 }

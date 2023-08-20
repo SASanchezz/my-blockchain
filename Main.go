@@ -6,7 +6,11 @@ import (
 )
 
 func main() {
-	conn, _ := client.Connect("localhost:3001")
+	conn, err := client.Connect("localhost:3001")
+	if err != nil {
+		println("Error connecting to peer:", err.Error())
+		return
+	}
 	client.SendGetSyncBlockchain(conn)
 	conn.Close()
 
