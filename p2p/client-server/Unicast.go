@@ -1,4 +1,4 @@
-package client
+package clientServer
 
 import (
 	"my-blockchain/blockchain"
@@ -7,6 +7,16 @@ import (
 )
 
 func SendNewBlock(conn net.Conn, block *blockchain.Block) {
+	request := &p2p.Request{
+		RequestType: p2p.NewBlockType,
+		Payload:     block,
+	}
+	sendMessge(conn, request)
+}
+
+func SendNewBlockToRandomNode(block *blockchain.Block) {
+	randomNode := p2p.GetRandomNodeAddress()
+	conn, _ := Connect(randomNode)
 	request := &p2p.Request{
 		RequestType: p2p.NewBlockType,
 		Payload:     block,

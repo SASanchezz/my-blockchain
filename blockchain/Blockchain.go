@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func (bl *Blockchain) AddBlock(from string, to string, amount int64, data string) *Block {
+func (bl *Blockchain) AddBlock(from string, to string, amount uint64, data string) *Block {
 	previousBlock := bl.Chain[len(bl.Chain)-1]                            // the previous block is needed, so let's get it
 	newBlock := NewBlock(from, to, amount, data, previousBlock.BlockHash) // create a new block containing the data and the hash of the previous block
 	newBlock.Mine()
@@ -15,7 +15,10 @@ func (bl *Blockchain) AddBlock(from string, to string, amount int64, data string
 }
 
 func NewBlockchain() *Blockchain { // the function is created
-	return &Blockchain{[]*Block{NewGenesisBlock()}} // the genesis block is added first to the Chain
+	return &Blockchain{
+		ConfirmationsNeeded: 2,
+		Chain:               []*Block{NewGenesisBlock()},
+	} // the genesis block is added first to the Chain
 }
 
 func (bl *Blockchain) IsValid() bool {

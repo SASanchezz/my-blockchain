@@ -1,4 +1,4 @@
-package server
+package clientServer
 
 import (
 	"encoding/json"

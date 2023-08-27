@@ -1,8 +1,7 @@
 package main
 
 import (
-	"my-blockchain/p2p/client"
-	"my-blockchain/p2p/server"
+	clientServer "my-blockchain/p2p/client-server"
 	"my-blockchain/utils"
 	"os"
 )
@@ -10,8 +9,8 @@ import (
 func main() {
 	utils.InitEnvVariables()
 
-	client.SyncBlockchain(os.Getenv("SEED_NODE_HOST"), os.Getenv("SEED_NODE_PORT"))
-	client.SyncNodeAddresses(os.Getenv("SEED_NODE_HOST"), os.Getenv("SEED_NODE_PORT"))
+	clientServer.SyncBlockchain(os.Getenv("SEED_NODE_HOST"), os.Getenv("SEED_NODE_PORT"))
+	clientServer.SyncNodeAddresses(os.Getenv("SEED_NODE_HOST"), os.Getenv("SEED_NODE_PORT"))
 
-	server.StartListening(os.Getenv("SEED_NODE_PORT"))
+	clientServer.StartListening(os.Getenv("SEED_NODE_PORT"))
 }

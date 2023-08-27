@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math/rand"
 	"net"
+	"reflect"
 )
 
 func ConvertMapToObject(m map[string]interface{}, s interface{}) {
@@ -31,4 +33,9 @@ func GetResponse(conn *net.Conn) *Request {
 		fmt.Println("Received:", request.RequestType, "from", (*conn).RemoteAddr())
 		return request
 	}
+}
+
+func GetRandomNodeAddress() string {
+	keys := reflect.ValueOf(NodeAddresses).MapKeys()
+	return keys[rand.Intn(len(keys))].Interface().(string)
 }

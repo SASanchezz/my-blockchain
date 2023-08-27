@@ -18,7 +18,7 @@ func (b *Block) GetHash() []byte {
 	return hash[:]
 }
 
-func NewBlock(from string, to string, amount int64, data string, prevBlockHash []byte) *Block {
+func NewBlock(from string, to string, amount uint64, data string, prevBlockHash []byte) *Block {
 	block := &Block{
 		from,
 		to,
@@ -27,6 +27,7 @@ func NewBlock(from string, to string, amount int64, data string, prevBlockHash [
 		time.Now().Unix(),
 		prevBlockHash,
 		[]byte{},
+		0,
 		0,
 	}
 	return block
@@ -55,10 +56,6 @@ func (b *Block) Mine() {
 			b.Nonce++
 		}
 	}
-	// for !strings.HasPrefix(string(b.BlockHash), strings.Repeat("0", difficulty)) {
-	// 	b.Nonce++
-	// 	b.BlockHash = GetHash(b)
-	// }
 }
 
 func NewGenesisBlock() *Block {
@@ -73,11 +70,11 @@ func (b *Block) GetBytes() []byte {
 	return bytes.Join([][]byte{
 		[]byte(b.From),
 		[]byte(b.To),
-		[]byte(strconv.FormatInt(b.Amount, 10)),
+		[]byte(strconv.FormatUint(b.Amount, 10)),
 		[]byte(b.Data),
 		[]byte(strconv.FormatInt(b.Timestamp, 10)),
 		[]byte(b.PreviousBlockHash),
-		[]byte(strconv.FormatInt(b.Nonce, 10)),
+		[]byte(strconv.FormatUint(b.Nonce, 10)),
 	}, []byte{})
 }
 

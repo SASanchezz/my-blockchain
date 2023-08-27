@@ -1,4 +1,4 @@
-package client
+package clientServer
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func SyncBlockchain(host string, port string) {
 	response := p2p.GetResponse(&conn)
 	var blockchain *blockchain.Blockchain = &blockchain.Blockchain{}
 	p2p.ConvertMapToObject(response.Payload.(map[string]interface{}), blockchain)
-	p2p.HandleBlockchain(blockchain)
+	HandleBlockchain(blockchain)
 }
 
 func SyncNodeAddresses(host string, port string) {
@@ -37,5 +37,5 @@ func SyncNodeAddresses(host string, port string) {
 	response := p2p.GetResponse(&conn)
 	nAddreses := map[string]struct{}{}
 	p2p.ConvertMapToObject(response.Payload.(map[string]interface{}), nAddreses)
-	p2p.HandleNodeAddresses(&nAddreses)
+	HandleNodeAddresses(&nAddreses)
 }

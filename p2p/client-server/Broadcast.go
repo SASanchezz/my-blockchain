@@ -1,4 +1,4 @@
-package client
+package clientServer
 
 import (
 	"my-blockchain/blockchain"
@@ -16,6 +16,14 @@ func BroadcastProcessedBlock(block *blockchain.Block) {
 func BroadcastNewBlock(block *blockchain.Block) {
 	request := &p2p.Request{
 		RequestType: p2p.NewBlockType,
+		Payload:     block,
+	}
+	broadcastMessge(request)
+}
+
+func BroadcastConfirmation(block *blockchain.Block) {
+	request := &p2p.Request{
+		RequestType: p2p.ConfirmationType,
 		Payload:     block,
 	}
 	broadcastMessge(request)
