@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"my-blockchain/p2p"
 	"net"
+	"os"
 )
 
 func Connect(target string) (net.Conn, error) {
@@ -30,7 +31,7 @@ func sendMessge(conn net.Conn, request *p2p.Request) {
 
 func broadcastMessge(request *p2p.Request) {
 	for address := range p2p.NodeAddresses {
-		conn, err := Connect(address)
+		conn, err := Connect(fmt.Sprintf("%s:%s", address, os.Getenv("SEED_NODE_PORT")))
 		if err != nil {
 			fmt.Println("Error connecting to peer:", err)
 			continue

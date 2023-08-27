@@ -13,7 +13,7 @@ func processRequestType(conn net.Conn, request *p2p.Request) {
 		var nodeData *p2p.NodeDataPayload = &p2p.NodeDataPayload{}
 		p2p.ConvertMapToObject(request.Payload.(map[string]interface{}), nodeData)
 		fmt.Println("Received node data")
-		HandleNodeData(nodeData)
+		HandleNodeData(conn, nodeData)
 
 	case p2p.NewBlockType:
 		var block *blockchain.Block = &blockchain.Block{}

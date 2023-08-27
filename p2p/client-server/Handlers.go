@@ -3,11 +3,12 @@ package clientServer
 import (
 	"my-blockchain/blockchain"
 	"my-blockchain/p2p"
+	"net"
 )
 
-func HandleNodeData(nd *p2p.NodeDataPayload) {
+func HandleNodeData(conn net.Conn, nd *p2p.NodeDataPayload) {
 	if nd.NodeDataType == p2p.MinerType {
-		p2p.NodeAddresses[nd.NodeDataType] = struct{}{}
+		p2p.NodeAddresses[conn.RemoteAddr().String()] = struct{}{}
 	}
 }
 
@@ -29,9 +30,14 @@ func HandleNewBlock(b *blockchain.Block) {
 }
 
 func HandleProcessedBlock(b *blockchain.Block) {
+	if blockchain.LocalBlockchain.Has(b) {
+		return
+	}
+
 	blockchain.LocalBlockchain.Chain = append(blockchain.LocalBlockchain.Chain, b)
 	if !blockchain.LocalBlockchain.IsValid() {
-		panic("Invalid blockchain") //TODO handle this more gracefully
+		print("Block is invalid")
+		return
 	}
 }
 

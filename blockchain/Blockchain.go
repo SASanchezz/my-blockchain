@@ -20,6 +20,15 @@ func NewBlockchain() *Blockchain { // the function is created
 	} // the genesis block is added first to the Chain
 }
 
+func (bl *Blockchain) Has(b *Block) bool {
+	for _, block := range bl.Chain {
+		if bytes.Equal(block.BlockHash, b.BlockHash) {
+			return true
+		}
+	}
+	return false
+}
+
 func (bl *Blockchain) IsValid() bool {
 	for i := range bl.Chain[1:] {
 		previousBlock := bl.Chain[i]
