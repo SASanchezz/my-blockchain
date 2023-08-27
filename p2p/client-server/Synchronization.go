@@ -6,6 +6,15 @@ import (
 	"my-blockchain/p2p"
 )
 
+func SendMyData(host string, port string, nodeData *p2p.NodeDataPayload) {
+	conn, err := Connect(fmt.Sprintf("%s:%s", host, port))
+	if err != nil {
+		println("Error connecting to peer:", err.Error())
+		return
+	}
+	SendNodeData(conn, nodeData)
+}
+
 func SyncBlockchain(host string, port string) {
 	conn, err := Connect(fmt.Sprintf("%s:%s", host, port))
 	if err != nil {

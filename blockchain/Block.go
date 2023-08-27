@@ -18,14 +18,14 @@ func (b *Block) GetHash() []byte {
 	return hash[:]
 }
 
-func NewBlock(from string, to string, amount uint64, data string, prevBlockHash []byte) *Block {
+func NewBlock(from string, to string, amount uint64, data string) *Block {
 	block := &Block{
 		from,
 		to,
 		amount,
 		data,
 		time.Now().Unix(),
-		prevBlockHash,
+		[]byte{},
 		[]byte{},
 		0,
 		0,
@@ -59,7 +59,7 @@ func (b *Block) Mine() {
 }
 
 func NewGenesisBlock() *Block {
-	var genesisBlock = NewBlock("", "", 0, "Genesis Block1", []byte{})
+	var genesisBlock = NewBlock("", "", 0, "Genesis Block1")
 	genesisBlock.Mine()
 
 	return genesisBlock

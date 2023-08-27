@@ -9,15 +9,22 @@ import (
 
 func processRequestType(conn net.Conn, request *p2p.Request) {
 	switch request.RequestType {
+	case p2p.NodeDataType:
+		var nodeData *p2p.NodeDataPayload = &p2p.NodeDataPayload{}
+		p2p.ConvertMapToObject(request.Payload.(map[string]interface{}), nodeData)
+		fmt.Println("Received node data")
+		HandleNodeData(nodeData)
+
 	case p2p.NewBlockType:
 		var block *blockchain.Block = &blockchain.Block{}
 		p2p.ConvertMapToObject(request.Payload.(map[string]interface{}), block)
+		fmt.Println("Received new block")
 		HandleNewBlock(block)
 
 	case p2p.ProcessedBlockType:
 		var block *blockchain.Block = &blockchain.Block{}
 		p2p.ConvertMapToObject(request.Payload.(map[string]interface{}), block)
-		fmt.Println("Received processed block2", block)
+		fmt.Println("Received processed block")
 		HandleProcessedBlock(block)
 
 	case p2p.GetSyncNodeAddressesType:

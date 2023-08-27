@@ -6,8 +6,7 @@ import (
 )
 
 func (bl *Blockchain) AddBlock(from string, to string, amount uint64, data string) *Block {
-	previousBlock := bl.Chain[len(bl.Chain)-1]                            // the previous block is needed, so let's get it
-	newBlock := NewBlock(from, to, amount, data, previousBlock.BlockHash) // create a new block containing the data and the hash of the previous block
+	newBlock := NewBlock(from, to, amount, data) // create a new block containing the data and the hash of the previous block
 	newBlock.Mine()
 	bl.Chain = append(bl.Chain, newBlock) // add that block to the Chain to create a Chain of blocks
 

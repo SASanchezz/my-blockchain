@@ -25,7 +25,6 @@ func StartListening(port string) {
 			fmt.Println("Error accepting connection:", err)
 			continue
 		}
-		p2p.NodeAddresses[conn.RemoteAddr().String()] = struct{}{}
 		go handleConnection(conn)
 	}
 }

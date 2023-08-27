@@ -5,8 +5,15 @@ import (
 	"my-blockchain/p2p"
 )
 
+func HandleNodeData(nd *p2p.NodeDataPayload) {
+	if nd.NodeDataType == p2p.MinerType {
+		p2p.NodeAddresses[nd.NodeDataType] = struct{}{}
+	}
+}
+
 func HandleNewBlock(b *blockchain.Block) {
 	b.Confirmations++
+	b.PreviousBlockHash = blockchain.LocalBlockchain.Chain[len(blockchain.LocalBlockchain.Chain)-1].BlockHash
 	b.Mine()
 	blockchain.LocalBlockchain.Chain = append(blockchain.LocalBlockchain.Chain, b)
 	if !blockchain.LocalBlockchain.IsValid() {

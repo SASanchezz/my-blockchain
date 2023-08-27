@@ -28,9 +28,8 @@ func main() {
 	// processedBlock := newBlockchain.AddBlock(fromAddress1, toAddress1, amount1, data1)
 	// p2p.BroadcastProcessedBlock(processedBlock)
 
-	previousBlock := bl.Chain[len(bl.Chain)-1] // the previous block is needed, so let's get it
-	newBlock := blockchain.NewBlock(fromAddress1, toAddress1, amount1, data1, previousBlock.BlockHash)
-	clientServer.BroadcastNewBlock(newBlock)
+	newBlock := blockchain.NewBlock(fromAddress1, toAddress1, amount1, data1)
+	clientServer.SendNewBlockToRandomNode(newBlock)
 
 	bl = *blockchain.LocalBlockchain // Initialize the blockchain
 	//newBlockchain.AddBlock(fromAddress2, toAddress2, amount2, data2)
