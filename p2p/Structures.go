@@ -3,6 +3,7 @@ package p2p
 var NodeAddresses = map[string]struct{}{}
 
 type NodeDataPayload struct {
+	Port         string `json:"Port"`
 	NodeDataType string `json:"NodeDataType"`
 }
 

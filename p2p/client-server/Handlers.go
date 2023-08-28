@@ -4,11 +4,14 @@ import (
 	"my-blockchain/blockchain"
 	"my-blockchain/p2p"
 	"net"
+	"strings"
 )
 
 func HandleNodeData(conn net.Conn, nd *p2p.NodeDataPayload) {
+	parts := strings.Split(conn.RemoteAddr().String(), ":")
+	url := parts[0]
 	if nd.NodeDataType == p2p.MinerType {
-		p2p.NodeAddresses[conn.RemoteAddr().String()] = struct{}{}
+		p2p.NodeAddresses[url+":"+nd.Port] = struct{}{}
 	}
 }
 
