@@ -2,7 +2,7 @@ package main
 
 import (
 	"my-blockchain/blockchain"
-	clientServer "my-blockchain/p2p/client-server"
+	clientServer "my-blockchain/p2p/client_server"
 	"my-blockchain/utils"
 	"os"
 )
