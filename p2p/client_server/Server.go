@@ -35,12 +35,12 @@ func handleConnection(conn net.Conn) {
 	fmt.Println("Connection established with:", conn.RemoteAddr())
 	var request *p2p.Request
 	decoder := json.NewDecoder(conn)
-	fmt.Println("Received:", decoder)
 	err := decoder.Decode(&request)
 	if err != nil {
 		fmt.Println("Error decoding JSON:", err)
 		return
 	}
 
+	fmt.Println("Received:", request)
 	processRequestType(conn, request)
 }

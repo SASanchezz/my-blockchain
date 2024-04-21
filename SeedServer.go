@@ -1,17 +1,13 @@
 package main
 
 import (
-	"my-blockchain/blockchain"
+	"my-blockchain/node"
 	"my-blockchain/p2p"
-	clientServer "my-blockchain/p2p/client_server"
 	"my-blockchain/utils"
 	"os"
 )
 
 func main() {
 	utils.InitEnvVariables()
-	blockchain.LocalBlockchain = blockchain.NewBlockchain()
-	p2p.NodeAddresses = map[string]struct{}{}
-
-	clientServer.StartListening(os.Getenv("SEED_NODE_PORT"))
+	node.Run(p2p.SeedNode, os.Getenv("SEED_NODE_PORT"))
 }

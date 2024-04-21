@@ -2,9 +2,9 @@ package integrationTest
 
 import (
 	"fmt"
+	"my-blockchain/p2p"
 	clientServer "my-blockchain/p2p/client_server"
 	"my-blockchain/utils"
-	"os"
 	"time"
 )
 
@@ -16,11 +16,11 @@ func IntegrationTest() {
 	time.Sleep(timeToWait)
 	go miner()
 	time.Sleep(timeToWait)
-	client_1()
-	client_2()
+	Client_1()
+	Client_2()
 	time.Sleep(timeToWait * 3)
 
-	conn, err := clientServer.Connect(fmt.Sprintf("%s:%s", os.Getenv("SEED_NODE_HOST"), os.Getenv("SEED_NODE_PORT")))
+	conn, err := clientServer.Connect(p2p.GetSeedNodeUrl().Host)
 	if err != nil {
 		println("Error connecting to peer:", err.Error())
 		return

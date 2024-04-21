@@ -37,11 +37,13 @@ func HandleProcessedBlock(b *blockchain.Block) {
 		return
 	}
 
-	blockchain.LocalBlockchain.Chain = append(blockchain.LocalBlockchain.Chain, b)
+	blockchain.LocalBlockchain.AppendBlock(b)
 	if !blockchain.LocalBlockchain.IsValid() {
 		print("Block is invalid")
+		blockchain.LocalBlockchain.RemoveLastBlock()
 		return
 	}
+
 }
 
 func HandleBlockchain(bl *blockchain.Blockchain) {

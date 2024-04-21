@@ -2,13 +2,13 @@ package integrationTest
 
 import (
 	"my-blockchain/blockchain"
+	"my-blockchain/p2p"
 	clientServer "my-blockchain/p2p/client_server"
-	"os"
 )
 
-func client_1() {
-	clientServer.SyncBlockchain("localhost", os.Getenv("SEED_NODE_PORT"))
-	clientServer.SyncNodeAddresses("localhost", os.Getenv("SEED_NODE_PORT"))
+func Client_1() {
+	clientServer.SyncBlockchain(p2p.GetSeedNodeUrl())
+	clientServer.SyncNodeAddresses(p2p.GetSeedNodeUrl())
 
 	fromAddress := "0x0002"
 	toAddress := "0x003"
@@ -19,9 +19,9 @@ func client_1() {
 	clientServer.SendNewBlockToRandomNode(newBlock)
 }
 
-func client_2() {
-	clientServer.SyncBlockchain("localhost", os.Getenv("SEED_NODE_PORT"))
-	clientServer.SyncNodeAddresses("localhost", os.Getenv("SEED_NODE_PORT"))
+func Client_2() {
+	clientServer.SyncBlockchain(p2p.GetSeedNodeUrl())
+	clientServer.SyncNodeAddresses(p2p.GetSeedNodeUrl())
 
 	fromAddress := "0x001"
 	toAddress := "0x002"

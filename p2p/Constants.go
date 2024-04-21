@@ -13,3 +13,4 @@ const GetSyncNodeAddressesType = "GetSyncNodeAddresses"
 //Node types
 const ClientType = "Client"
 const MinerType = "Miner"
+const SeedNode = "SeedNode"

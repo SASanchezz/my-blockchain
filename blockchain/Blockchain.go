@@ -13,6 +13,14 @@ func (bl *Blockchain) AddBlock(from string, to string, amount uint64, data strin
 	return newBlock
 }
 
+func (bl *Blockchain) AppendBlock(b *Block) {
+	bl.Chain = append(bl.Chain, b)
+}
+
+func (bl *Blockchain) RemoveLastBlock() {
+	bl.Chain = bl.Chain[:len(bl.Chain)-1]
+}
+
 func NewBlockchain() *Blockchain { // the function is created
 	return &Blockchain{
 		ConfirmationsNeeded: 2,

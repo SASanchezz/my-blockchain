@@ -3,23 +3,12 @@ package p2p
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"math/rand"
 	"net"
+	"net/url"
+	"os"
 	"reflect"
 )
-
-func ConvertMapToObject(m map[string]interface{}, s interface{}) {
-	jsonData, err := json.Marshal(m)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = json.Unmarshal(jsonData, &s)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
 
 func GetResponse(conn *net.Conn) *Request {
 	for {
@@ -35,7 +24,18 @@ func GetResponse(conn *net.Conn) *Request {
 	}
 }
 
+func GetSeedNodeUrl() *url.URL {
+	return GetUrl(os.Getenv("SEED_NODE_HOST"), os.Getenv("SEED_NODE_PORT"))
+}
+
+func GetUrl(address string, port string) *url.URL {
+	url, _ := url.Parse(fmt.Sprintf("%s:%s", address, port))
+	url.Host = fmt.Sprintf("%s:%s", address, port)
+	return url
+}
+
 func GetRandomNodeAddress() string {
+	print("NodeAddresses", NodeAddresses)
 	keys := reflect.ValueOf(NodeAddresses).MapKeys()
 	return keys[rand.Intn(len(keys))].Interface().(string)
 }
